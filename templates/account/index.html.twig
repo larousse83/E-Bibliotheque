@@ -1,0 +1,14 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title 'Profile'%}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-6 mx-auto text-center">
+            <div>
+                <h1 class="my-5">Profile de {{ app.user.fullName }}</h1>
+                <p><small>Compte créé le  {{ app.user.createdAt|date('d/m/Y') }}</small></p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
