@@ -6,6 +6,7 @@ use App\Entity\Traits\Timestampable;
 use App\Repository\OuvrageRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
@@ -50,7 +51,7 @@ class Ouvrage
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
      * @Vich\UploadableField(mapping="ouvrages_image", fileNameProperty="couverture")
-     *
+     * @Assert\Image(maxSize="8M")
      * @var File|null
      */
     private $imageFile;
