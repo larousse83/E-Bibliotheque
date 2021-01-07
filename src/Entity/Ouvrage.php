@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\Timestampable;
 use App\Repository\OuvrageRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
@@ -11,9 +12,12 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\Entity(repositoryClass=OuvrageRepository::class)
  * @ORM\Table(name="`ouvrages`")
  * @Vich\Uploadable
+ * @ORM\HasLifecycleCallbacks
  */
 class Ouvrage
 {
+    use Timestampable;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
