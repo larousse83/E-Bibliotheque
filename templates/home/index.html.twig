@@ -1,9 +1,41 @@
 {% extends 'layouts/base.html.twig' %}
 
+{# {% block title 'Find all the best pins on earth !'%} #}
+
 {% block body %}
 
+    {% if ouvrages|length > 0%}
+        <h1 class="text-center text-muted mb-4">{{ plurilaze(ouvrages|length, 'Ouvrage')}}</h1>
+        {% for row in ouvrages|batch(3) %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-</div>
+            <div class="row mb-5">
+
+                {% for ouvrage in row %}
+                    <div class="col-md-4">
+                        <article class="bg-white rounded shadow pin">
+                            <div class="mw-100 overflow-hidden rounded-top">
+                                <a href="">
+                                    <img src="{{ ouvrage.couverture ? vich_uploader_asset(ouvrage) |imagine_filter('squared_thumbnail_medium') : asset('build/images/default.webp') |
+                                    imagine_filter('squared_thumbnail_medium') }}" alt="{{ ouvrage.titre }}" class="w-100"/>
+                                </a>
+                            </div>
+
+                            <h2 class="h5 pl-3 pt-3"><a class="text-decoration-none text-secondary" href="">{{ ouvrage.titre }}</a></h2>
+
+                            <p class="pl-3 pb-3 text-muted"><small> {{ ouvrage.auteur }}</small></p>
+
+                        </article>
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% endfor %}
+    {% else %}
+        <p class="h1 mt-5 text-center">Aucun ouvrage n'est disponible acctuellement</p>
+    {% endif %}
+
+
+
 {% endblock %}
