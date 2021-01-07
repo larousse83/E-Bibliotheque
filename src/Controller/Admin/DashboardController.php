@@ -15,7 +15,7 @@ class DashboardController extends AbstractDashboardController
 {
     /**
      * @Route("/admin", name="admin")
-     * @Security("is_granted('ROLE_SUPER_ADMIN')")
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function index(): Response
     {
@@ -38,8 +38,8 @@ class DashboardController extends AbstractDashboardController
             MenuItem::section('Bibliothèque'),
             MenuItem::linkToCrud('Ouvrage', 'fa fa-tags', Ouvrage::class),
 
-            MenuItem::section('Users'),
-            MenuItem::linkToCrud('Users', 'fa fa-user', User::class),
+            MenuItem::section('Users')->setPermission('ROLE_SUPER_ADMIN'),
+            MenuItem::linkToCrud('Users', 'fa fa-user', User::class)->setPermission('ROLE_SUPER_ADMIN'),
         ];
     }
 }
