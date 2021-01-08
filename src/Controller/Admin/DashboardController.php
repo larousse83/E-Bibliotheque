@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Ouvrage;
+use App\Entity\OuvrageCollection;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -36,6 +37,7 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToDashboard('Home', 'fa fa-home'),
 
             MenuItem::section('Bibliothèque'),
+            MenuItem::linkToCrud('Collection', 'fa fa-tags', OuvrageCollection::class),
             MenuItem::linkToCrud('Ouvrage', 'fa fa-tags', Ouvrage::class),
 
             MenuItem::section('Users')->setPermission('ROLE_SUPER_ADMIN'),

@@ -56,6 +56,12 @@ class Ouvrage
      */
     private $imageFile;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=OuvrageCollection::class, inversedBy="ouvrages")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $ouvrageCollection;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -130,6 +136,18 @@ class Ouvrage
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getOuvrageCollection(): ?OuvrageCollection
+    {
+        return $this->ouvrageCollection;
+    }
+
+    public function setOuvrageCollection(?OuvrageCollection $ouvrageCollection): self
+    {
+        $this->ouvrageCollection = $ouvrageCollection;
 
         return $this;
     }
