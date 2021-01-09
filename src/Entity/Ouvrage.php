@@ -69,9 +69,15 @@ class Ouvrage
      */
     private $chapitres;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Ressource::class, mappedBy="ouvrage", orphanRemoval=true)
+     */
+    private $ressources;
+
     public function __construct()
     {
         $this->chapitres = new ArrayCollection();
+        $this->ressources = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -197,5 +203,35 @@ class Ouvrage
     public function __toString(){
 
         return $this->titre;
+    }
+
+    /**
+     * @return Collection|Ressource[]
+     */
+    public function getRessources(): Collection
+    {
+        return $this->ressources;
+    }
+
+    public function addRessource(Ressource $ressource): self
+    {
+        if (!$this->ressources->contains($ressource)) {
+            $this->ressources[] = $ressource;
+            $ressource->setOuvrage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRessource(Ressource $ressource): self
+    {
+        if ($this->ressources->removeElement($ressource)) {
+            // set the owning side to null (unless already changed)
+            if ($ressource->getOuvrage() === $this) {
+                $ressource->setOuvrage(null);
+            }
+        }
+
+        return $this;
     }
 }

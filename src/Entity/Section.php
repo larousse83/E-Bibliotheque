@@ -29,10 +29,16 @@ class Section extends ElementFavorisable
      */
     private $chapitre;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Ressource::class, mappedBy="section", orphanRemoval=true)
+     */
+    private $ressources;
+
     public function __construct()
     {
         parent::__construct();
         $this->sections = new ArrayCollection();
+        $this->ressources = new ArrayCollection();
     }
 
     public function getSection(): ?self
@@ -92,5 +98,35 @@ class Section extends ElementFavorisable
     public function __toString(){
 
         return $this->getTitre();
+    }
+
+    /**
+     * @return Collection|Ressource[]
+     */
+    public function getRessources(): Collection
+    {
+        return $this->ressources;
+    }
+
+    public function addRessource(Ressource $ressource): self
+    {
+        if (!$this->ressources->contains($ressource)) {
+            $this->ressources[] = $ressource;
+            $ressource->setSection($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRessource(Ressource $ressource): self
+    {
+        if ($this->ressources->removeElement($ressource)) {
+            // set the owning side to null (unless already changed)
+            if ($ressource->getSection() === $this) {
+                $ressource->setSection(null);
+            }
+        }
+
+        return $this;
     }
 }

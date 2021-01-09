@@ -14,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\DiscriminatorMap({
  *     "chapitre" = "Chapitre",
  *     "section" = "Section",
+ *     "ressource" = "Ressource"
  * })
  */
 abstract class ElementFavorisable
