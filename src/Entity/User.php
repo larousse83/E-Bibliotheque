@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Entity\Traits\Timestampable;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -54,6 +55,16 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity=Ouvrage::class, mappedBy="user", orphanRemoval=true)
      */
     private $ouvrages;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=ElementFavorisable::class, mappedBy="users")
+     */
+    private $favoris;
+
+    public function __construct()
+    {
+        $this->favoris = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -173,5 +184,32 @@ class User implements UserInterface
     public function getGravatarUrl(?int $size = 100){
 
         return sprintf('https://www.gravatar.com/avatar/%s/?s=%d', md5(strtolower((trim($this->getEmail())))), $size);
+    }
+
+    /**
+     * @return Collection|ElementFavorisable[]
+     */
+    public function getFavoris(): Collection
+    {
+        return $this->favoris;
+    }
+
+    public function addFavori(ElementFavorisable $favori): self
+    {
+        if (!$this->favoris->contains($favori)) {
+            $this->favoris[] = $favori;
+            $favori->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavori(ElementFavorisable $favori): self
+    {
+        if ($this->favoris->removeElement($favori)) {
+            $favori->removeUser($this);
+        }
+
+        return $this;
     }
 }
