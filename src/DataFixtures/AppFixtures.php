@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Chapitre;
 use App\Entity\Ouvrage;
 use App\Entity\OuvrageCollection;
+use App\Entity\Section;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -54,6 +55,30 @@ class AppFixtures extends Fixture
         $chapitre2->setTitre('Chapitre second');
         $chapitre2->setOuvrage($ouvrage3);
         $manager->persist($chapitre2);
+
+        $section = new Section();
+        $section->setTitre('section 1');
+        $section->setChapitre($chapitre);
+        $manager->persist($section);
+
+
+        $section2 = new Section();
+        $section2->setTitre('section 1-a');
+        $section2->setSection($section);
+        $section2->setChapitre($chapitre);
+        $manager->persist($section2);
+
+
+        $section3 = new Section();
+        $section3->setTitre('section 2');
+        $section3->setChapitre($chapitre);
+        $manager->persist($section3);
+
+        $section4 = new Section();
+        $section4->setTitre('section 1');
+        $section4->setChapitre($chapitre2);
+        $manager->persist($section4);
+
 
         $manager->flush();
     }

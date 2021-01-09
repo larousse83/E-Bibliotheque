@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\DiscriminatorMap({
  *     "chapitre" = "Chapitre",
+ *     "section" = "Section",
  * })
  */
 abstract class ElementFavorisable
