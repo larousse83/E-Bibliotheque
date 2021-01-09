@@ -9,8 +9,13 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=ElementFavorisableRepository::class)
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="type", type="string")
+ * @ORM\DiscriminatorMap({
+ *     "chapitre" = "Chapitre",
+ * })
  */
-class ElementFavorisable
+abstract class ElementFavorisable
 {
     /**
      * @ORM\Id

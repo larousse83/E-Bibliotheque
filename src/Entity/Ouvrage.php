@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Entity\Traits\Timestampable;
 use App\Repository\OuvrageRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -61,6 +63,16 @@ class Ouvrage
      * @ORM\JoinColumn(nullable=false)
      */
     private $ouvrageCollection;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Chapitre::class, mappedBy="ouvrage", orphanRemoval=true)
+     */
+    private $chapitres;
+
+    public function __construct()
+    {
+        $this->chapitres = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -150,5 +162,40 @@ class Ouvrage
         $this->ouvrageCollection = $ouvrageCollection;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Chapitre[]
+     */
+    public function getChapitres(): Collection
+    {
+        return $this->chapitres;
+    }
+
+    public function addChapitre(Chapitre $chapitre): self
+    {
+        if (!$this->chapitres->contains($chapitre)) {
+            $this->chapitres[] = $chapitre;
+            $chapitre->setOuvrage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChapitre(Chapitre $chapitre): self
+    {
+        if ($this->chapitres->removeElement($chapitre)) {
+            // set the owning side to null (unless already changed)
+            if ($chapitre->getOuvrage() === $this) {
+                $chapitre->setOuvrage(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString(){
+
+        return $this->titre;
     }
 }
