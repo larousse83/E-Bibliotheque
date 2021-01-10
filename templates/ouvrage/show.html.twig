@@ -14,7 +14,7 @@
                     <h1 class="h5 text-decoration-none text-secondary">{{ ouvrage.titre }}</h1>
 
                     {% for chapitre in ouvrage.chapitres %}
-                        <a class="" href="">
+                        <a class="" href="{{ path("app_chapitre_show", {id : chapitre.id}) }}">
                             <p class="pt-3 text-break">{{ chapitre.titre }}</p>
                         </a>
                     {% endfor %}
