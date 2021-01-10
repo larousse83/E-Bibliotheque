@@ -8,6 +8,22 @@
                   integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
                   crossorigin="anonymous">
         {% endblock %}
+        <style>
+            .alert{
+                padding: 10px;
+                color: white;
+                text-align: center;
+            }
+            .alert-success{
+                background-color: green;
+            }
+            .alert-error{
+                background-color: red;
+            }
+            .alert-info{
+                background-color: blue;
+            }
+        </style>
     </head>
     <body>
         {{ include('layouts/partials/_flash_messages.html.twig') }}
