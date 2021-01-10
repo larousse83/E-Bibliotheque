@@ -1,0 +1,35 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title ouvrage.titre %}
+
+{% block body %}
+    <div class="row">
+            <div class="col-md-12 d-flex">
+                <div class="col-md-6">
+                    <div class="mw-100 overflow-hidden rounded">
+                        <img src="{{ ouvrage.couverture ? vich_uploader_asset(ouvrage) |imagine_filter('squared_thumbnail_medium') : asset('build/ouvrages/default.webp') |
+                        imagine_filter('squared_thumbnail_medium') }}" alt="{{ ouvrage.titre }}" class="w-100"/>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <article class="bg-white rounded shadow">
+
+                        <div class="p-3">
+                            <h1 class="h5 text-decoration-none text-secondary">{{ ouvrage.titre }}</h1>
+
+                            <div class="pt-3">
+                                <p class="pt-3 text-break">{{ ouvrage.ouvragecollection.titre }}</p>
+                            </div>
+                            {% for chapitre in ouvrage.chapitres %}
+                                <a class="" href="{{ path("app_chapitre_show", {id : chapitre.id}) }}">
+                                    <p class="pt-3 text-break">{{ chapitre.titre }}</p>
+                                </a>
+                            {% endfor %}
+
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}
