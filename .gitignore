@@ -17,6 +17,7 @@
 
 ###> custom env vars ###
 /public/uploads/
+/public/medias/
 ###< end custom env vars  ###
 
 ###> liip/imagine-bundle ###

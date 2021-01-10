@@ -13,8 +13,9 @@
                 {% for ouvrage in row %}
                     <div class="col-md-4">
                         <article class="bg-white rounded shadow pin">
+
                             <div class="mw-100 overflow-hidden rounded-top">
-                                <a href="">
+                                <a href="{{ path("app_ouvrages_show", {id : ouvrage.id}) }}">
                                     <img src="{{ ouvrage.couverture ? vich_uploader_asset(ouvrage) |imagine_filter('squared_thumbnail_medium') : asset('build/images/default.webp') |
                                     imagine_filter('squared_thumbnail_medium') }}" alt="{{ ouvrage.titre }}" class="w-100"/>
                                 </a>
