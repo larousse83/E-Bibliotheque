@@ -20,12 +20,15 @@
                             <div class="pt-3">
                                 <p class="pt-3 text-break">{{ ouvrage.ouvragecollection.titre }}</p>
                             </div>
-                            {% for chapitre in ouvrage.chapitres %}
-                                <a class="" href="{{ path("app_chapitre_show", {id : chapitre.id}) }}">
-                                    <p class="pt-3 text-break">{{ chapitre.titre }}</p>
-                                </a>
-                            {% endfor %}
-
+                            {% if ouvrage.chapitres|length > 0%}
+                                {% for chapitre in ouvrage.chapitres %}
+                                    <a class="" href="{{ path("app_chapitre_show", {id : chapitre.id}) }}">
+                                        <p class="pt-3 text-break">{{ chapitre.titre }}</p>
+                                    </a>
+                                {% endfor %}
+                            {% else %}
+                                <p class="pt-3 text-break">Aucune chapitre n'est disponible pour cet ouvrage </p>
+                            {% endif %}
                         </div>
                     </article>
                 </div>

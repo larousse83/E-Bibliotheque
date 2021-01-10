@@ -8,6 +8,13 @@
             <article class="bg-white rounded shadow pin">
                 <div class="p-3">
                     <h1 class="h5 text-decoration-none text-secondary">{{ chapitre.titre }}</h1>
+                    {% if chapitre.sections|length > 0 %}
+                        {% for section in chapitre.sections %}
+                            <p class="pt-3 text-break">{{ section.titre }}</p>
+                        {% endfor %}
+                    {% else %}
+                        <p class="pt-3 text-break">Aucune section n'est disponible pour ce chapitre</p>
+                    {% endif %}
 
                 </div>
             </article>
