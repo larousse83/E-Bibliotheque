@@ -18,6 +18,16 @@
                         <p class="pt-3 text-break">Aucune section n'est disponible pour ce chapitre</p>
                     {% endif %}
 
+                    {% if chapitre.ressources|length > 0 %}
+                        {% for ressource in chapitre.ressources %}
+                            <a href="{{ path("app_ressource", {id : ressource.id}) }}">
+                                <p class="pt-3 text-break">{{ ressource.titre }}</p>
+                            </a>
+                        {% endfor %}
+                    {% else %}
+                        <p class="pt-3 text-break">Aucune ressource n'est disponible pour ce chapitre</p>
+                    {% endif %}
+
                 </div>
             </article>
         </div>

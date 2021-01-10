@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Ressource;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -9,12 +10,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class RessourceController extends AbstractController
 {
     /**
-     * @Route("/ressource", name="ressource")
+     * @Route("/ressource/{id}", name="app_ressource")
      */
-    public function index(): Response
+    public function index(Ressource $ressource): Response
     {
-        return $this->render('ressource/index.html.twig', [
-            'controller_name' => 'RessourceController',
-        ]);
+        if(!$this->getUser()){
+            $this->addFlash('error', 'Vous devez vous connecter !.');
+
+            return $this->redirectToRoute('app_home');
+        }
+
+        return $this->render('ressource/index.html.twig', compact('ressource'));
     }
 }
