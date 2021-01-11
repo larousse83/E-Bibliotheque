@@ -10,6 +10,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Vich\UploaderBundle\Form\Type\VichImageType;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class RessourceCrudController extends AbstractCrudController
 {
@@ -26,7 +27,7 @@ class RessourceCrudController extends AbstractCrudController
                 return [
                     TextField::new('titre'),
                     TextareaField::new('imageFile','vignette')->setFormType(VichImageType::class),
-                    TextField::new('fichier'),
+                    TextField::new('fichierFile','fichier')->setFormType(VichFileType::class),
 
                     AssociationField::new( 'ouvrage', 'Ouvrage' )->setCustomOption( "by_reference", false ),
                     AssociationField::new( 'chapitre', 'Chapitre' )->setCustomOption( "by_reference", false ),
@@ -36,7 +37,7 @@ class RessourceCrudController extends AbstractCrudController
                 return [
                     TextField::new('titre'),
                     ImageField::new('vignette','vignette')->setBasePath('/medias/vignettes'),
-                    TextField::new('fichier'),
+                    ImageField::new('fichier','fichier')->setBasePath('/medias/ressource_fichier'),
 
                     AssociationField::new( 'ouvrage', 'Ouvrage' )->setCustomOption( "by_reference", false ),
                     AssociationField::new( 'chapitre', 'Chapitre' )->setCustomOption( "by_reference", false ),

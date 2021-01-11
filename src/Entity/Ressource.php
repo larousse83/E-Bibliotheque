@@ -55,6 +55,12 @@ class Ressource extends ElementFavorisable
      */
     private $imageFile;
 
+    /**
+     * @Vich\UploadableField(mapping="media_object", fileNameProperty="fichier")
+     * @var File|null
+     */
+    private $fichierFile;
+
     public function getSection(): ?Section
     {
         return $this->section;
@@ -137,5 +143,33 @@ class Ressource extends ElementFavorisable
         $this->fichier = $fichier;
 
         return $this;
+    }
+
+    public function setFichierFile(File $fichier = null)
+    {
+        $this->fichierFile = $fichier;
+
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($fichier) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getFichierFile()
+    {
+        return $this->fichierFile;
+    }
+
+    public function setImage($fichier)
+    {
+        $this->fichier = $fichier;
+    }
+
+    public function getImage()
+    {
+        return $this->fichier;
     }
 }
