@@ -6,6 +6,8 @@
     <div class="row">
         <div class="col-md-12 mx-auto">
             <h1 class="h5 text-decoration-none text-secondary">{{ ressource.titre }}</h1>
+
+            <a download="{{ ressource.fichier }}" href="{{asset (vich_uploader_asset (ressource, 'fichierFile'))}}"><p>{{ ressource.fichier }}</p></a>
         </div>
     </div>
 {% endblock %}

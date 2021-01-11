@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Ressource;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class RessourceController extends AbstractController
 {

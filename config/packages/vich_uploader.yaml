@@ -8,8 +8,8 @@ vich_uploader:
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
         vignette_file:
             uri_prefix: /uploads/vignettes/
-            upload_destination: '%kernel.project_dir%/public/medias/vignettes'
+            upload_destination: '%kernel.project_dir%/public/uploads/vignettes'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
         media_object:
             uri_prefix: /uploads/ressource_fichier
-            upload_destination: '%kernel.project_dir%/public/medias/ressource_fichier'
+            upload_destination: '%kernel.project_dir%/public/uploads/ressource_fichier'
