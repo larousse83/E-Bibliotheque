@@ -15,21 +15,60 @@
                         imagine_filter('squared_thumbnail_medium') }}" alt="{{ ouvrage.titre }}" class="w-100"/>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="p-3">
-                        {% if ouvrage.chapitres|length > 0%}
-                            {% for chapitre in ouvrage.chapitres %}
-                                <a class="" href="{{ path("app_chapitre_show", {id : chapitre.id}) }}">
-                                    <p class="pt-3 text-break">{{ chapitre.titre }}</p>
-                                </a>
-                            {% endfor %}
-                        {% else %}
-                            <p class="pt-3 text-break">Aucune chapitre n'est disponible pour cet ouvrage </p>
-                        {% endif %}
+                        <ul>
+                            {% if ouvrage.chapitres|length > 0%}
+                                {% for chapitre in ouvrage.chapitres %}
+                                <li>
+                                    <div>
+                                        <a class="heart float-right" data-id="{{ chapitre.id }}" href="#">
+                                            <span class="fa fa-heart"></span>
+                                        </a>
+                                        <a class="" href="{{ path("app_chapitre_show", {id : chapitre.id}) }}">
+                                            <p class="pt-3 text-break">{{ chapitre.titre }}</p>
+                                        </a>
+                                    </div>
+                                    <ul>
+                                        {% if chapitre.sections|length > 0%}
+                                            {% for section in chapitre.sections %}
+                                                <li>
+                                                    <div>
+                                                        <a class="heart float-right" data-id="{{ section.id }}" href="#">
+                                                            <span class="fa fa-heart"></span>
+                                                        </a>
+                                                        <a class="" href="{{ path("app_section", {id : section.id}) }}">
+                                                            <p class="pt-3 text-break">{{ section.titre }}</p>
+                                                        </a>
+                                                    </div>
+                                                    <ul>
+                                                        {% if section.ressources|length > 0%}
+                                                            {% for ressource in section.ressources %}
+                                                                <li>
+                                                                    <a class="heart float-right" data-id="{{ ressource.id }}" href="#">
+                                                                        <span class="fa fa-heart"></span>
+                                                                    </a>
+                                                                    <a class="" href="{{ path("app_ressource", {id : ressource.id}) }}">
+                                                                        <p class="pt-3 text-break">{{ ressource.titre }}</p>
+                                                                    </a>
+                                                                    <a download="{{ ressource.fichier }}" href="{{asset (vich_uploader_asset (ressource, 'fichierFile'))}}"><p>{{ ressource.fichier }}</p></a>
+                                                                </li>
+                                                            {% endfor %}
+                                                        {% endif %}
+                                                    </ul>
+                                                </li>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </ul>
+                                </li>
+                                {% endfor %}
+                            {% else %}
+                                <p class="pt-3 text-break">Cet ouvrage est en cours de création</p>
+                            {% endif %}
+                        </ul>
                     </div>
                 </div>
             </article>
         </div>
     </div>
-
 {% endblock %}

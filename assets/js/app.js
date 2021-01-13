@@ -12,4 +12,33 @@ import '../scss/app.scss';
 import $ from 'jquery';
 import 'bootstrap';
 
+// Favorite Button - Heart
+var $container = $('.heart');
+$container.on('click', function(e) {
+    var id = $(this).data( "id");
+
+    if ($(this).hasClass('favoris'))
+    {
+        $(this).removeClass('favoris')
+        $.ajax({
+            type: 'DELETE',
+            url: '/favoris/remove/'+$(this).data( "id"),
+            data: { id: $(this).data( "id") },
+            success: function (data) {
+
+            }
+        });
+
+    }else {
+        $(this).addClass('favoris')
+        $.ajax({
+            type: 'POST',
+            url: '/favoris/add/'+$(this).data( "id"),
+            data: { id: $(this).data( "id") },
+            success: function (data) {
+
+            }
+        });
+    }
+});
 
