@@ -3,6 +3,10 @@
 {% block title ouvrage.titre %}
 
 {% block body %}
+    {% set favoris = [] %}
+    {% for favori in user.getFavoris %}
+        {% set favoris = favoris|merge([favori.id]) %}
+    {% endfor %}
     <div class="row">
         <div class="col-md-12">
             <article class="bg-white rounded shadow">
@@ -22,9 +26,7 @@
                                 {% for chapitre in ouvrage.chapitres %}
                                 <li>
                                     <div>
-                                        <a class="heart float-right {% for favori in user.getFavoris %}
-                                            {% if chapitre.id|number_format in favori.id|number_format %} favoris{% endif %}
-                                        {% endfor %}" data-id="{{ chapitre.id }}" href="#">
+                                        <a class="heart float-right {% if chapitre.id in favoris %} favoris{% endif %}" data-id="{{ chapitre.id }}" href="#">
                                             <span class="fa fa-heart"></span>
                                         </a>
                                         <a class="" href="{{ path("app_chapitre_show", {id : chapitre.id}) }}">
@@ -36,9 +38,7 @@
                                             {% for section in chapitre.sections %}
                                                 <li>
                                                     <div>
-                                                        <a class="heart float-right{% for favori in user.getFavoris %}
-                                            {% if section.id|number_format in favori.id|number_format %} favoris{% endif %}
-                                        {% endfor %}" data-id="{{ section.id }}" href="#">
+                                                        <a class="heart float-right{% if section.id in favoris %} favoris{% endif %}" data-id="{{ section.id }}" href="#">
                                                             <span class="fa fa-heart"></span>
                                                         </a>
                                                         <a class="" href="{{ path("app_section", {id : section.id}) }}">
@@ -49,9 +49,7 @@
                                                         {% if section.ressources|length > 0%}
                                                             {% for ressource in section.ressources %}
                                                                 <li>
-                                                                    <a class="heart float-right{% for favori in user.getFavoris %}
-                                            {% if ressource.id|number_format in favori.id|number_format %} favoris{% endif %}
-                                        {% endfor %}" data-id="{{ ressource.id }}" href="#">
+                                                                    <a class="heart float-right{% if ressource.id in favoris %} favoris{% endif %}" data-id="{{ ressource.id }}" href="#">
                                                                         <span class="fa fa-heart"></span>
                                                                     </a>
                                                                     <a class="" href="{{ path("app_ressource", {id : ressource.id}) }}">
