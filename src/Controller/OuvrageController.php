@@ -35,6 +35,6 @@ class OuvrageController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-        return $this->render('ouvrage/index.html.twig', compact('ouvrage'));
+        return $this->render('ouvrage/index.html.twig', ['ouvrage' => $ouvrage, 'user' => $this->getUser()]);
     }
 }

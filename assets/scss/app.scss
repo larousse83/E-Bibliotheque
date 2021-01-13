@@ -1,9 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
 @import 'shared/_variables.scss';
 @import "~bootstrap/scss/bootstrap";
 
 body {
     font-family: $primary-font, sans-serif;
+}
+
+.heart {
+  color: gainsboro;
+  font-size: 200%;
+  @include hover() {
+    color: red;
+  }
+}
+.favoris{
+  color: red;
 }
 
 .alert{
