@@ -44,12 +44,6 @@ class Ouvrage
     private $couverture;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="ouvrages")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $user;
-
-    /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
      * @Vich\UploadableField(mapping="ouvrages_image", fileNameProperty="couverture")
@@ -74,10 +68,16 @@ class Ouvrage
      */
     private $ressources;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Abonnement::class, mappedBy="ouvrage", orphanRemoval=true)
+     */
+    private $abonnements;
+
     public function __construct()
     {
         $this->chapitres = new ArrayCollection();
         $this->ressources = new ArrayCollection();
+        $this->abonnements = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -142,18 +142,6 @@ class Ouvrage
     public function setCouverture(?string $couverture): self
     {
         $this->couverture = $couverture;
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
 
         return $this;
     }
@@ -229,6 +217,36 @@ class Ouvrage
             // set the owning side to null (unless already changed)
             if ($ressource->getOuvrage() === $this) {
                 $ressource->setOuvrage(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Abonnement[]
+     */
+    public function getAbonnements(): Collection
+    {
+        return $this->abonnements;
+    }
+
+    public function addAbonnement(Abonnement $abonnement): self
+    {
+        if (!$this->abonnements->contains($abonnement)) {
+            $this->abonnements[] = $abonnement;
+            $abonnement->setOuvrage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAbonnement(Abonnement $abonnement): self
+    {
+        if ($this->abonnements->removeElement($abonnement)) {
+            // set the owning side to null (unless already changed)
+            if ($abonnement->getOuvrage() === $this) {
+                $abonnement->setOuvrage(null);
             }
         }
 

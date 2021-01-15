@@ -52,18 +52,19 @@ class User implements UserInterface
     private $prenom;
 
     /**
-     * @ORM\OneToMany(targetEntity=Ouvrage::class, mappedBy="user", orphanRemoval=true)
-     */
-    private $ouvrages;
-
-    /**
      * @ORM\ManyToMany(targetEntity=ElementFavorisable::class, mappedBy="users")
      */
     private $favoris;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Abonnement::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $abonnements;
+
     public function __construct()
     {
         $this->favoris = new ArrayCollection();
+        $this->abonnements = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -168,14 +169,6 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|Ouvrage[]
-     */
-    public function getOuvrages(): Collection
-    {
-        return $this->ouvrages;
-    }
-
     public function getFullName()
     {
         return $this->getPrenom() .' '. $this->getNom();
@@ -208,6 +201,36 @@ class User implements UserInterface
     {
         if ($this->favoris->removeElement($favori)) {
             $favori->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Abonnement[]
+     */
+    public function getAbonnements(): Collection
+    {
+        return $this->abonnements;
+    }
+
+    public function addAbonnement(Abonnement $abonnement): self
+    {
+        if (!$this->abonnements->contains($abonnement)) {
+            $this->abonnements[] = $abonnement;
+            $abonnement->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAbonnement(Abonnement $abonnement): self
+    {
+        if ($this->abonnements->removeElement($abonnement)) {
+            // set the owning side to null (unless already changed)
+            if ($abonnement->getUser() === $this) {
+                $abonnement->setUser(null);
+            }
         }
 
         return $this;
