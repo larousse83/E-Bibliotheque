@@ -16,8 +16,7 @@
 ###< symfony/phpunit-bridge ###
 
 ###> custom env vars ###
-/public/uploads/
-/public/medias/
+#/public/uploads/
 ###< end custom env vars  ###
 
 ###> liip/imagine-bundle ###

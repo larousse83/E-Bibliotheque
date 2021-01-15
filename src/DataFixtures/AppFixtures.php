@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Chapitre;
 use App\Entity\Ouvrage;
 use App\Entity\OuvrageCollection;
+use App\Entity\Ressource;
 use App\Entity\Section;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -21,7 +22,7 @@ class AppFixtures extends Fixture
         $collectionOuvrage->setOuvrageCollection($collection);
         $collectionOuvrage->setTitre('Ouvrage 1');
         $collectionOuvrage->setAuteur('Auteur 1');
-        $collectionOuvrage->setCouverture('photo1-5ff8c837ad0eb967821674.webp');
+        $collectionOuvrage->setCouverture('photo1.webp');
         $manager->persist($collectionOuvrage);
 
         $collectionOuvragechapitre = new Chapitre();
@@ -33,6 +34,15 @@ class AppFixtures extends Fixture
         $collectionOuvragechapitreSection->setTitre('section 1');
         $collectionOuvragechapitreSection->setChapitre($collectionOuvragechapitre);
         $manager->persist($collectionOuvragechapitreSection);
+
+        $collectionOuvragechapitreSectionRessource = new Ressource();
+        $collectionOuvragechapitreSectionRessource->setOuvrage($collectionOuvrage);
+        $collectionOuvragechapitreSectionRessource->setChapitre($collectionOuvragechapitre);
+        $collectionOuvragechapitreSectionRessource->setSection($collectionOuvragechapitreSection);
+        $collectionOuvragechapitreSectionRessource->setTitre('sressource 1');
+        $collectionOuvragechapitreSectionRessource->setFichier('cicZ.zip');
+        $collectionOuvragechapitreSectionRessource->setVignette('photo3.webp');
+        $manager->persist($collectionOuvragechapitreSectionRessource);
 
         $collectionOuvragechapitreSection2 = new Section();
         $collectionOuvragechapitreSection2->setTitre('section 1-a');
@@ -64,7 +74,7 @@ class AppFixtures extends Fixture
         $collectionOuvrage2->setOuvrageCollection($collection2);
         $collectionOuvrage2->setTitre('Ouvrage 2');
         $collectionOuvrage2->setAuteur('Auteur 2');
-        $collectionOuvrage2->setCouverture('photo2-5ff8ca259983d786471507.webp');
+        $collectionOuvrage2->setCouverture('photo2.webp');
         $manager->persist($collectionOuvrage2);
 
         $collectionOuvrage2chapitre = new Chapitre();
@@ -106,7 +116,7 @@ class AppFixtures extends Fixture
         $collectionOuvrage3->setOuvrageCollection($collection3);
         $collectionOuvrage3->setTitre('Ouvrage 3');
         $collectionOuvrage3->setAuteur('Auteur 1');
-        $collectionOuvrage3->setCouverture('photo3-5ff8cb1479cae052871923.webp');
+        $collectionOuvrage3->setCouverture('photo3.webp');
         $manager->persist($collectionOuvrage3);
 
         $collectionOuvrage3chapitre = new Chapitre();
