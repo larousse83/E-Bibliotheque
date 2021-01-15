@@ -19,8 +19,9 @@
 
                     <div class="pt-3">
                         <a class="btn btn-light" href="{{ path("app_ouvrage", {id : ouvrage.id}) }}">Consulter</a>
-                    </div>
 
+                        <a id="abonnement" class="btn btn-light float-right" data-id="{{ ouvrage.id }}" href="javascript:void(0);">S'abonner</a>
+                    </div>
                 </div>
             </article>
         </div>
