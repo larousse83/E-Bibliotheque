@@ -32,7 +32,7 @@ class FavorisController extends AbstractController
     }
 
     /**
-     * @Route("/favoris/add/{id}", name="app_favoris_add", methods={"PUT"})
+     * @Route("/favoris/add/{id}", name="app_favoris_add", methods={"POST","PUT"})
      * @param Request $request
      * @return JsonResponse
      */
