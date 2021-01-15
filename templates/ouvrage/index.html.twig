@@ -14,7 +14,7 @@
                     <h1 class="h4 text-decoration-none text-secondary">{{ ouvrage.titre }}</h1>
                     <p class="pt-3 text-break">{{ ouvrage.ouvragecollection.titre }}</p>
 
-                    <div class="mw-100 overflow-hidden rounded">
+                    <div class="cover mw-100 overflow-hidden rounded">
                         <img src="{{ ouvrage.couverture ? vich_uploader_asset(ouvrage) |imagine_filter('squared_thumbnail_medium') : asset('build/ouvrages/default.webp') |
                         imagine_filter('squared_thumbnail_medium') }}" alt="{{ ouvrage.titre }}" class="w-100"/>
                     </div>
@@ -26,7 +26,7 @@
                                 {% for chapitre in ouvrage.chapitres %}
                                 <li>
                                     <div>
-                                        <a class="heart float-right {% if chapitre.id in favoris %} favoris{% endif %}" data-id="{{ chapitre.id }}" href="#">
+                                        <a class="heart float-right {% if chapitre.id in favoris %} favoris{% endif %}" data-id="{{ chapitre.id }}" href="javascript:void(0);">
                                             <span class="fa fa-heart"></span>
                                         </a>
                                         <a class="" href="{{ path("app_chapitre_show", {id : chapitre.id}) }}">
@@ -38,7 +38,7 @@
                                             {% for section in chapitre.sections %}
                                                 <li>
                                                     <div>
-                                                        <a class="heart float-right{% if section.id in favoris %} favoris{% endif %}" data-id="{{ section.id }}" href="#">
+                                                        <a class="heart float-right{% if section.id in favoris %} favoris{% endif %}" data-id="{{ section.id }}" href="javascript:void(0);">
                                                             <span class="fa fa-heart"></span>
                                                         </a>
                                                         <a class="" href="{{ path("app_section", {id : section.id}) }}">
@@ -49,7 +49,7 @@
                                                         {% if section.ressources|length > 0%}
                                                             {% for ressource in section.ressources %}
                                                                 <li>
-                                                                    <a class="heart float-right{% if ressource.id in favoris %} favoris{% endif %}" data-id="{{ ressource.id }}" href="#">
+                                                                    <a class="heart float-right{% if ressource.id in favoris %} favoris{% endif %}" data-id="{{ ressource.id }}" href="javascript:void(0);">
                                                                         <span class="fa fa-heart"></span>
                                                                     </a>
                                                                     <a class="" href="{{ path("app_ressource", {id : ressource.id}) }}">
