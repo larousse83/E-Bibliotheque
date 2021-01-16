@@ -6,9 +6,35 @@
     <div class="row">
         <div class="col-md-6 mx-auto text-center">
             <div>
-                <h1 class="my-5">Profile de {{ app.user.fullName }}</h1>
+                <h1 class="my-4">Profile de {{ app.user.fullName }}</h1>
                 <p><small>Compte créé le  {{ app.user.createdAt|date('d/m/Y') }}</small></p>
             </div>
         </div>
     </div>
+    <h2 class="my-5">Ma bibliothèque</h2>
+    <div class="row mb-5">
+
+        {% for abonnement in abonnements %}
+            <div class="col-md-4">
+                <article class="bg-white rounded shadow pin">
+
+                    <div class="cover mw-100 overflow-hidden rounded-top">
+                        <a href="{{ path("app_ouvrages_show", {id : abonnement.ouvrage.id}) }}">
+                            <img src="{{ abonnement.ouvrage.couverture ? vich_uploader_asset(abonnement.ouvrage) |imagine_filter('squared_thumbnail_medium') : asset('build/images/default.webp') |
+                            imagine_filter('squared_thumbnail_medium') }}" alt="{{ abonnement.ouvrage.titre }}" class="w-100"/>
+                        </a>
+                    </div>
+
+                    <h2 class="h5 pl-3 pt-3"><a class="text-decoration-none text-secondary" href="">{{ abonnement.ouvrage.titre }}</a></h2>
+
+                    <p class="pl-3 text-muted"><small> {{ abonnement.ouvrage.auteur }}</small></p>
+
+                    <h3 class="h5 pl-3 pb-3"><a class="text-decoration-none text-secondary" href="">{{ abonnement.ouvrage.ouvrageCollection.Titre }}</a></h3>
+                </article>
+            </div>
+
+        {% endfor %}
+
+    </div>
+
 {% endblock %}
