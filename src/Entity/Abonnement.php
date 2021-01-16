@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\AbonnementRepository;
+use DateInterval;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -51,7 +52,8 @@ class Abonnement
 
     public function setDateAbonnement(\DateTimeInterface $dateAbonnement): self
     {
-        $this->dateAbonnement = $dateAbonnement;
+        $this->dateAbonnement = $dateAbonnement->add(new DateInterval('P1Y'));
+;
 
         return $this;
     }

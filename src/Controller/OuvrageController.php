@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Abonnement;
 use App\Entity\Chapitre;
 use App\Entity\Ouvrage;
+use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +16,7 @@ class OuvrageController extends AbstractController
     /**
      * @Route("/ouvrage/show/{id}", name="app_ouvrages_show", methods={"GET"}))
      */
-    public function show(Ouvrage $ouvrage): Response
+    public function show(Ouvrage $ouvrage, EntityManagerInterface $em): Response
     {
         if(!$this->getUser()){
             $this->addFlash('error', 'Vous devez vous connecter !.');
@@ -23,7 +24,8 @@ class OuvrageController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-        return $this->render('ouvrage/show.html.twig', compact('ouvrage'));
+        return $this->render('ouvrage/show.html.twig', ['ouvrage' => $ouvrage]);
+
     }
 
     /**
@@ -39,12 +41,22 @@ class OuvrageController extends AbstractController
 
         $abonnement = $entityManager->getRepository(Abonnement::class)->findOneBy(['ouvrage' => $ouvrage->getId(), 'user' => $this->getUser()]);
 
+
         if($abonnement){
 
+            $today = new \DateTimeImmutable;
+
+            if($abonnement->getDateAbonnement() < $today ){
+
+                $this->addFlash('error', 'Vous devez renouveler votre abonnement pour consulter cet ouvrage! .');
+
+                return $this->redirectToRoute('app_ouvrages_show',['id' => $ouvrage->getId()]);
+            }
             return $this->render('ouvrage/index.html.twig', ['ouvrage' => $ouvrage, 'user' => $this->getUser()]);
         }
 
-        $this->addFlash('error', 'Vous devez être abonné !.');
+
+        $this->addFlash('error', 'Vous devez être abonné pour consulter cet ouvrage !.');
 
         return $this->redirectToRoute('app_ouvrages_show',['id' => $ouvrage->getId()]);
 

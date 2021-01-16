@@ -42,16 +42,3 @@ $favoris.on('click', function(e) {
     }
 });
 
-var $abonnement = $('#abonnement');
-$abonnement.on('click', function(e) {
-    var id = $(this).data( "id");
-
-    $.ajax({
-        type: 'POST',
-        url: '/abonnement/'+$(this).data( "id"),
-        data: { id: $(this).data( "id") },
-        success: function (data) {
-
-        }
-    });
-});

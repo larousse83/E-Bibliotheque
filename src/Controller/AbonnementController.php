@@ -4,35 +4,39 @@ namespace App\Controller;
 
 use App\Entity\Abonnement;
 use App\Entity\Ouvrage;
+use DateInterval;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AbonnementController extends AbstractController
 {
     /**
-     * @Route("/abonnement/{id}", name="app_abonnement", methods={"POST"})
-     * @param Request $request
-     * @return JsonResponse
+     * @Route("/abonnement/{id}", name="app_abonnement", methods={"POST", "GET"})
      */
-    public function create(Request $request, EntityManagerInterface $manager) : JsonResponse
+    public function add(Request $request, EntityManagerInterface $em): Response //, UserRepository $userRepo
     {
-        if($request->isXmlHttpRequest()){
-            $id = $request->get('id');
-            $abonnement = new Abonnement();
-            $abonnement->setOuvrage($manager->getRepository(Ouvrage::class)->findOneBy(['id' => $id]));
-            $abonnement->setUser($this->getUser());
-            $abonnement->setDateAbonnement(new \DateTimeImmutable);
-            $abonnement->setDateLastRenouvellement(new \DateTimeImmutable);
-            $manager->persist($abonnement);
-            $manager->flush();
-            $this->addFlash('success', 'Vous êtes abonnés !');
+        $id = $request->get('id');
 
-            return new JsonResponse('ok', 200);
+        $abonnement = $em->getRepository(Abonnement::class)->findOneBy(['ouvrage' => $id, 'user' => $this->getUser()]);
+
+        if(!$abonnement){
+            $abonnement = new Abonnement();
+            $abonnement->setOuvrage($em->getRepository(Ouvrage::class)->findOneBy(['id' => $id]));
+            $abonnement->setUser($this->getUser());
         }
-        return new JsonResponse("Ce n'est pas de l'ajax", 400);
+
+        $abonnement->setDateAbonnement(new \DateTimeImmutable);
+        $abonnement->setDateLastRenouvellement(new \DateTimeImmutable);
+
+        $em->persist($abonnement);
+        $em->flush();
+        $this->addFlash('success', 'Vous êtes abonnés à cet ouvrage pendant un an !');
+        return $this->redirectToRoute('app_ouvrage',['id' => $id]);
+
 
     }
 }
