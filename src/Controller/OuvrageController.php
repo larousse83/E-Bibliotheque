@@ -23,9 +23,9 @@ class OuvrageController extends AbstractController
 
             return $this->redirectToRoute('app_home');
         }
+        $abo =  $em->getRepository(Abonnement::class)->findOneBy(['ouvrage' => $ouvrage->getId(), 'user' => $this->getUser()]);
 
-        return $this->render('ouvrage/show.html.twig', ['ouvrage' => $ouvrage]);
-
+        return $this->render('ouvrage/show.html.twig', ['ouvrage' => $ouvrage, 'abo' => $abo]);
     }
 
     /**

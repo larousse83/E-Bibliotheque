@@ -19,7 +19,9 @@
 
                     <div class="pt-3">
                         <a class="btn btn-light" href="{{ path("app_ouvrage", {id : ouvrage.id}) }}">Consulter</a>
-                        <a id="" class="btn btn-light float-right" href="{{ path("app_abonnement", {id : ouvrage.id}) }}">S'abonner</a>
+                        {% if not abo or date(abo.dateAbonnement) < date()  %}
+                            <a id="" class="btn btn-light float-right" href="{{ path("app_abonnement", {id : ouvrage.id}) }}">S'abonner</a>
+                        {% endif %}
                     </div>
                 </div>
             </article>
