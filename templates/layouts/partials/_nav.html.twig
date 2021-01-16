@@ -1,6 +1,6 @@
 <div class="container">
     <nav class="navbar navbar-expand-sm navbar-light mb-4">
-        <a class="navbar-brand" href="{{ path('app_home') }}">Home</a>
+        <a class="navbar-brand" href="{{ path('app_home') }}">Accueil</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -12,7 +12,7 @@
                         <a class="nav-link" href="{{ path('app_account')}}">Mon compte</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" onclick="event.preventDefault(); document.getElementById('js-logout-form').submit();" href="#">Logout</a>
+                        <a class="nav-link" onclick="event.preventDefault(); document.getElementById('js-logout-form').submit();" href="#">Déconnexion</a>
                     </li>
                     <form id="js-logout-form" action="{{ path('app_logout')}}" method="POST" style="display: none">
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token('logout') }}">
@@ -20,7 +20,7 @@
 
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_login')}}">Login</a>
+                        <a class="nav-link" href="{{ path('app_login')}}">Connexion</a>
                     </li>
                 {% endif %}
             </ul>
