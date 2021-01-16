@@ -44,9 +44,11 @@ Pour yarn taper dans la console :
 #### Pour lancer l'application
 Lancer dans la console :
 
+    npm run dev
+Ouvrir un autre console à la racine du projet et lancer :
+
     symfony serve -d
     symfony open:local
-    npm run dev
 
 
 
