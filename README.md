@@ -49,6 +49,12 @@ Ouvrir un autre console à la racine du projet et lancer :
 
     symfony serve -d
     symfony open:local
+    
+Trois jeux de test sont disponnible :
+
+superAdmin@gmail.com , admin@gmail.com , test@gmail.com
+
+mot de passe : admin
 
 
 
