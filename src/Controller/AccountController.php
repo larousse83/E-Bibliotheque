@@ -16,6 +16,12 @@ class AccountController extends AbstractController
      */
     public function index(EntityManagerInterface $entityManager): Response
     {
+        if(!$this->getUser()){
+            $this->addFlash('error', 'Vous devez vous connecter !.');
+
+            return $this->redirectToRoute('app_home');
+        }
+
         $abonnements =  $entityManager->getRepository(Abonnement::class)->findBy(['user' => $this->getUser()]);
         return $this->render('account/index.html.twig', ['abonnements' => $abonnements]);
     }
