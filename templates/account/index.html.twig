@@ -12,10 +12,10 @@
         </div>
     </div>
     <h2 class="my-5">Ma bibliothèque</h2>
+    <h5 class="my-5">Mes abonnements</h5>
     <div class="row mb-5">
-        {% if abonnements|length %}
-
-            {% for abonnement in abonnements %}
+        {% if app.user.abonnements|length %}
+            {% for abonnement in app.user.abonnements %}
                 <div class="col-md-4">
                     <article class="bg-white rounded shadow pin">
 
@@ -39,5 +39,20 @@
             <p class="mt-3 text-center">Vous êtes abonné à aucun ouvrage</p>
         {% endif %}
     </div>
+    <h5 class="my-5">Mes favoris</h5>
+        {% if app.user.favoris|length %}
+            {% for favori in app.user.favoris %}
+                <div class="row mb-5">
+                    <a class=" float-right" href="#">
+                        <p class="pt-3 text-break">{{ favori.titre }}</p>
+                    </a>
+                    <a class="heart {% if favori %} favoris{% endif %}" data-id="{{ favori.id }}" href="javascript:void(0);">
+                        <span class="fa fa-heart"></span>
+                    </a>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="mt-3 text-center">Vous n'avez aucun favoris actuellement</p>
+        {% endif %}
 
 {% endblock %}
