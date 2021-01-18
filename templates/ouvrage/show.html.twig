@@ -7,8 +7,10 @@
         <div class="col-md-6 mx-auto">
             <article class="bg-white rounded shadow pin">
                 <div class="cover mw-100 overflow-hidden rounded-top">
-                    <img src="{{ ouvrage.couverture ? vich_uploader_asset(ouvrage) |imagine_filter('squared_thumbnail_medium') : asset('build/ouvrages/default.webp') |
-                    imagine_filter('squared_thumbnail_medium') }}" alt="{{ ouvrage.titre }}" class="w-100"/>
+                    <a href="{{ path("app_ouvrage", {id : ouvrage.id}) }}">
+                        <img src="{{ ouvrage.couverture ? vich_uploader_asset(ouvrage) |imagine_filter('squared_thumbnail_medium') : asset('build/images/default.webp') |
+                        imagine_filter('squared_thumbnail_medium') }}" alt="{{ ouvrage.titre }}" class="w-100"/>
+                    </a>
                 </div>
                 <div class="p-3">
                     <h1 class="h5 text-decoration-none text-secondary">{{ ouvrage.titre }}</h1>
