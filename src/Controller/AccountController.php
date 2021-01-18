@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -10,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AccountController extends AbstractController
 {
     /**
-     * @Route("/account", name="app_account")
+     * @Route("/account", name="app_account", methods={"GET"})
      */
     public function index(): Response
     {
@@ -20,8 +19,6 @@ class AccountController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-        return $this->render('account/index.html.twig', [
-            'controller_name' => 'AccountController',
-        ]);
+        return $this->render('account/index.html.twig');
     }
 }
