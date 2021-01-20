@@ -64,6 +64,12 @@ class FavorisController extends AbstractController
 
             return $this->redirectToRoute('app_home');
         }
+
+        if(!$favoris->getUsers()->contains($this->getUser())){
+            $this->addFlash('error', 'Vous ajouter cette selection à vos favoris pour la consulter !.');
+            return $this->redirectToRoute('app_account');
+        }
+
         $chapitre = $em->getRepository(Chapitre::class)->findOneBy(['id' => $favoris->getId()]);
         $section = $em->getRepository(Section::class)->findOneBy(['id' => $favoris->getId()]);
         $ressource = $em->getRepository(Ressource::class)->findOneBy(['id' => $favoris->getId()]);
