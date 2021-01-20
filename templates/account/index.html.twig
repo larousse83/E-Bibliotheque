@@ -44,7 +44,7 @@
         {% if app.user.favoris|length %}
             {% for favori in app.user.favoris %}
                 <div class="row mb-5">
-                    <a class=" float-right" href="#">
+                    <a class=" float-right" href="{{ path("app_favoris", {id : favori.id}) }}">
                         <p class="mr-3 ml-3 pt-3 text-break">{{ favori.titre }}</p>
                     </a>
                     <a class="heart {% if favori %} favoris{% endif %}" data-id="{{ favori.id }}" href="javascript:void(0);">
