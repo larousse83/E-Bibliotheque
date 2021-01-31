@@ -15,10 +15,11 @@ Lancer dans la console :
   
 #### Création de la BDD
  
- Dans le fichier .env, decommanté la ligne choisi DATABASE_URL et compléter db_user et db_password 
+ Dans le fichier .env, decommanté la ligne choisi DATABASE_URL et compléter db_user, db_password et db_name 
  
+ Exemple :
  ```php
-DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/E-bibliotheque?serverVersion=5.7"
+# DATABASE_URL="mysql://root:@127.0.0.1:3306/db_name?serverVersion=5.7"
  ```     
 Lancer dans la console :
 
